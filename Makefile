@@ -20,8 +20,8 @@ deploy:
 		"Bucket=$(BUCKET)" \
 		"md5=$(MD5)" \
 		"SSMKeyArn"=$(SSMKeyArn) \
-		"PDSSMKeyName"=$(STACKNAME_BASE) \
-		"SlackSSMKeyName"=$(STACKNAME_BASE)-slack \
+		"PDSSMKeyName"=$(STACKNAME_BASE)-pd-key \
+		"SlackSSMKeyName"=$(STACKNAME_BASE)-slack-key \
 		--capabilities CAPABILITY_IAM || exit 0
 
 discover:
@@ -31,6 +31,6 @@ discover:
 		--query 'Stacks[0].Outputs'
 
 put-pd-key:
-	./scripts/put-ssm.sh $(STACKNAME_BASE) $(STACKNAME_BASE) $(REGION)
+	./scripts/put-ssm.sh $(STACKNAME_BASE)-pd-key $(STACKNAME_BASE) $(REGION)
 put-slack-key:
-	./scripts/put-ssm.sh $(STACKNAME_BASE)-slack $(STACKNAME_BASE) $(REGION)
+	./scripts/put-ssm.sh $(STACKNAME_BASE)-slack-key $(STACKNAME_BASE) $(REGION)
