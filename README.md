@@ -43,12 +43,14 @@ at the company.
   {
     "schedule": "P123456",
     "slack": "C123456",
-    "sched_name": "Optional schedule name to use in topic"
+    "sched_name": "Optional schedule name to use in topic",
+    "secondary": "P789123"
   }
   ```
   (where `schedule` is the PagerDuty Schedule ID, and `slack` is the Slack
   Channel ID. You can have a space-separated list of channels. `sched_name` is
-  optional and if omitted will be looked up)
+  optional and if omitted will be looked up. `secondary` is optional to add a
+  secondary schedule to the topic)
 
 ## Architecture
 The main part of this infrastructure is an AWS Lambda Function that operates on

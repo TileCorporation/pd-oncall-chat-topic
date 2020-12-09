@@ -196,11 +196,25 @@ def do_work(obj):
         sched_name = obj['sched_name']['S']
     except:
         sched_name = get_pd_schedule_name(schedule)
+    try:
+        secondary = obj['secondary']['S']
+        secondary_id = figure_out_schedule(secondary)
+        secondary_username = get_user(secondary_id)
+        secondary_sched_name = get_pd_schedule_name(secondary_id)
+    except:
+        secondary_username = None
+        secondary_sched_name = None
     if username is not None:  # then it is valid and update the chat topic
         topic = "{} is on-call for {}".format(
             username,
             sched_name
         )
+        if secondary_username is not None:
+            topic = "{} and {} is on-call for {}".format(
+                topic,
+                secondary_username,
+                secondary_sched_name
+            )
         if 'slack' in obj.keys():
             slack = obj['slack']['S']
             # 'slack' may contain multiple channels seperated by whitespace
